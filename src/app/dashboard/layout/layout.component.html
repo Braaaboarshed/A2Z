@@ -1,0 +1,30 @@
+<nav class=" navbar navbar-expand-lg navbar-light">
+  <div class="container">
+    <div class="navbar-brand" >{{username}}</div>
+
+    <div class="collapse  navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" routerLink="/tasks" routerLinkActive="active">Home </a>
+        </li>
+      
+      </ul>
+    </div>
+  
+   
+     
+    <div class="nav-item my-2 my-sm-0" >
+     <a class="nav-link" routerLink="/login" *ngIf="isLogged" (click)="logout()" >Logout</a>
+    </div>
+
+    <div class="nav-item my-2 my-sm-0" >
+      <a class="nav-link" routerLink="/login" *ngIf="!isLogged" >Login</a>
+     </div>
+  </div>
+
+</nav>
+<div class="container">
+ 
+    <router-outlet></router-outlet>
+
+</div>

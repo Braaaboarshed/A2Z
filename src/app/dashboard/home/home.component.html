@@ -1,0 +1,61 @@
+<div class="container">
+
+
+  <div class="searchBox">
+    <form #f="ngForm"  >
+      <mat-form-field >
+        <span matPrefix> </span>
+        <input type="text" matInput placeholder="Search" name="search" [(ngModel)]="searchQuery" >
+        <button mat-raised-button color="primary" class="search-btn"  (click)="search(searchQuery)">Search</button>
+        </mat-form-field>
+    </form>
+  
+   </div>
+  <div class="posts" *ngFor="let post of posts.posts ">
+    <mat-card class="example-card"   >
+      <mat-card-header [routerLink]="['/userDetails',post.userId]">
+        <mat-card-title></mat-card-title>
+              <mat-card-subtitle>{{post.title}}</mat-card-subtitle>
+            </mat-card-header>
+
+    
+            <mat-card-content [routerLink]="['/userDetails',post.userId]">
+              <p>This card {{post.body}}.</p>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-raised-button color="primary" [routerLink]="['/userDetails',post.userId]">profile</button>
+              <button mat-raised-button color="primary"  hideToggle (click)="addComment(post.userId,post.id)">Comments</button>
+              <span class="like-space" >{{post.reactions}}</span>
+              <span> like</span>
+            </mat-card-actions>
+           <div *ngIf="show  " class="comments-container" >
+            <div *ngFor="let comment of comments.comments"  >
+              
+              <p *ngIf="comment.postId ==post.userId && firstClick" class="comments" >{{comment.body}}</p>
+
+            </div>
+              <div *ngIf="post.userId == postId && firstClick">
+                
+                <form  #f="ngForm" (ngSubmit)="createComment(comment)" >
+                  <mat-form-field class="example-full-width">
+                    <mat-label>comment</mat-label>
+                    <input type="text" matInput placeholder="type your comment" required name="comment" [(ngModel)]="comment" >
+                    <mat-error >
+                      Please enter a valid comment
+                    </mat-error>
+                  </mat-form-field>
+                  <button mat-raised-button color="primary" type="submit" [disabled]="!f.valid" >Send</button>
+
+                </form>
+
+                  </div>
+           </div>
+            
+          </mat-card>
+          <div class="space"></div>
+        </div>
+        <div class="d-flex justify-content-center" *ngIf="loader && posts.length >= 0" >
+          <mat-spinner></mat-spinner>
+        </div>
+
+  </div>
